@@ -16,11 +16,11 @@ body {
     padding: 1rem 2rem;
 
     /* TODO: Add display: flex here */
-
+    display: flex;
     /* TODO: Add justify-content to space items apart */
-
+    justify-content: space-between
     /* TODO: Add align-items to center items vertically */
-}
+}   align-items: center;
 
 /* TODO: Style the logo */
 .logo {
@@ -34,8 +34,9 @@ body {
     list-style: none;
 
     /* TODO: Make the links display in a row using Flexbox */
-
+    display: flex;
     /* TODO: Add gap or spacing between links */
+    justify-content: space around;
 }
 
 .nav-links a {
