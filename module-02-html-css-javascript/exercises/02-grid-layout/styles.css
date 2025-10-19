@@ -31,12 +31,13 @@ h1 {
 /* TODO: Create the grid gallery */
 .gallery {
     /* TODO: Add display: grid */
-
+    display: grid;
     /* TODO: Add grid-template-columns for 3 equal columns */
     /* Hint: Use repeat(3, 1fr) */
+    grid-template-columns: 1fr 1fr 1fr;
 
     /* TODO: Add gap between grid items */
-
+    gap: 10px;
 }
 
 /* Style the photo items */
@@ -48,6 +49,7 @@ h1 {
 
     /* TODO: Make sure images maintain aspect ratio */
     /* Try using aspect-ratio: 1; to make items square */
+    aspect-ratio: 1;
 }
 
 /* Make images responsive */
@@ -69,18 +71,18 @@ h1 {
 
 /* TODO: Make it responsive (Bonus) */
 
-/* Mobile: 1 column */
-/* @media (max-width: 767px) {
+/* Mobile: 1 column  */
+@media (max-width: 767px) {
     .gallery {
         grid-template-columns: 1fr;
     }
-} */
+}
 
 /* Tablet: 2 columns */
-/* @media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
     .gallery {
         grid-template-columns: repeat(2, 1fr);
     }
-} */
+}
 
-/* Desktop: 3 columns (default, already set above) */
+Desktop: 3 columns (default, already set above) */
