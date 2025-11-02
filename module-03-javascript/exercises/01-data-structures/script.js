@@ -1,6 +1,5 @@
 // Shopping List Manager Exercise
 // Practice: Arrays, Objects, Array Methods
-
 // TODO: Create an array to store shopping items
 // Each item should be an object with: id, name, quantity, purchased
 let shoppingList = [];
@@ -27,11 +26,17 @@ function addItem(name, quantity) {
     // - name: the item name
     // - quantity: the quantity
     // - purchased: false (new items aren't purchased yet)
-
+    let newItem = {
+        id: nextId,
+        name: name, 
+        quantity: quantity,
+        purchased: false,
+    };
     // Add the object to the shoppingList array
-
+    shoppingList.push(newItem);
+    nextId +=1;
     // Render the list
-
+    renderList()
     // Clear the inputs
     itemNameInput.value = '';
     itemQuantityInput.value = '1';
@@ -41,18 +46,28 @@ function addItem(name, quantity) {
 function togglePurchased(id) {
     // Find the item in the array with matching id
     // Hint: Use array.find() method
-
+    let targetItem = shoppingList.find(function(item) {
+        return id === item.id;
+    });
+        
     // Toggle its purchased property (true ↔ false)
-
+    targetItem.purchased = !targetItem.purchased;
     // Render the list
+    renderList();
 }
 
 // TODO: Function to delete an item
 function deleteItem(id) {
     // Remove the item from the array
     // Hint: Use array.filter() to keep all items except the one with this id
+    let newList = shoppingList.filter(function(item) {
+        return item.id !== id
+    }) ;
 
+    shoppingList = newList;
+        
     // Render the list
+    renderList()
 }
 
 // TODO: Function to render the shopping list
@@ -66,9 +81,16 @@ function renderList() {
     if (currentFilter === 'purchased') {
         // TODO: Filter to show only purchased items
         // Hint: Use array.filter() where item.purchased === true
+        filteredItems = shoppingList.filter(function(item) {
+        return item.purchased === true
+        });
+        
     } else if (currentFilter === 'unpurchased') {
         // TODO: Filter to show only unpurchased items
         // Hint: Use array.filter() where item.purchased === false
+        filteredItems = shoppingList.filter(function(item) {
+        return item.purchased === false
+        });
     }
 
     // Loop through filtered items and create DOM elements
