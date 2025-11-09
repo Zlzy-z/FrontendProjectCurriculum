@@ -17,16 +17,22 @@ let gameOver;
 function startNewGame() {
     // Generate random number between 1 and 100
     // Hint: Math.random() * 100 gives 0-99, then add 1 and use Math.floor()
+    secretNumber = Math.floor(Math.random() * 100 + 1);
 
     // Reset attempts to 0
+    attempts = 0;
 
     // Set gameOver to false
+    gameOver = false;
 
     // Clear feedback
+    feedback.textContent = ""
 
     // Clear input
+    guessInput.textContent = ""
 
     // Update attempts display
+    attemptsDisplay. textContent = ""
 }
 
 // TODO: Function to check the guess
@@ -53,6 +59,7 @@ function checkGuess() {
     }
 
     // TODO: Increment attempts
+    attempts++;
 
     // TODO: Check if guess is correct
     if (guess === secretNumber) {
@@ -60,6 +67,8 @@ function checkGuess() {
         // Show success message with number of attempts
         // Set gameOver to true
         // Add 'success' class to feedback
+        gameOver = true;
+        feedback.textContent = "Success!";
     }
     // TODO: Check if guess is too low
     else if (guess < secretNumber) {
@@ -70,6 +79,14 @@ function checkGuess() {
         // If within 5: "Very close!"
         // If within 10: "Close!"
         // Otherwise: "Too low!"
+        if (secretNumber-guess <=5)
+            {feedback.textContent = "Very Close";
+        } else if (geuss - secretNumber <= 10){
+            feedback.textContent = "Close";
+        } else {
+            feedback.textContent = "Too Low"
+        }
+    
     }
     // TODO: Guess is too high
     else {
@@ -77,10 +94,17 @@ function checkGuess() {
         // Add 'hint' class to feedback
 
         // BONUS: Give more specific hints
+        if (guess -secretNumber <= 5)
+            {feedback.textContent = "Very Close";
+        } else if (guess - secretNumber <= 10){
+            feedback.textContent = "Close";
+        } else {
+            feedback.textContent = "Too High"
+        }
     }
-
+    console.log(attempts);
     // TODO: Update attempts display
-
+    attemptsDisplay.textContent = "Attempts = " + attempts;
     // Clear input for next guess
     guessInput.value = '';
     guessInput.focus();
