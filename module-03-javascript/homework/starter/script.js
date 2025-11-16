@@ -23,6 +23,16 @@ function addTodo(text) {
     // Add to todos array
     // Increment nextId
     // Render the list
+    let newTodo ={
+        name: text,
+        id: nextId,
+        complete: false,
+    };
+
+    todos.push(newTodo);
+    nextId++;
+    
+    renderTodos()
 }
 
 // TODO: Function to toggle todo completion
@@ -30,13 +40,25 @@ function toggleTodo(id) {
     // Find todo by id
     // Toggle its completed property
     // Render the list
+    let todo = todos.find(function(todo) {
+        return id === todo.id;
+    }); 
+    todo.complete = !todo.complete;
+    renderTodos();
 }
 
 // TODO: Function to delete a todo
 function deleteTodo(id) {
     // Filter out the todo with matching id
+    
+    let newTodo = todos.filter(function(todo){
+        return todo.id !=id;
+    });
+    todos = newTodo;
     // Render the list
+    renderTodos();
 }
+
 
 // TODO: Function to render todos
 function renderTodos() {
@@ -47,8 +69,14 @@ function renderTodos() {
     let filteredTodos = todos;
     if (currentFilter === 'active') {
         // Show only incomplete todos
+        filteredTodos = todos.filter(function(todo){
+            return todo.complete === false;
+        });
     } else if (currentFilter === 'completed') {
         // Show only completed todos
+        filteredTodos = todos.filter(function(todo){
+            return todo.complete === true;
+        });
     }
 
     // Create DOM elements for each todo
@@ -56,13 +84,36 @@ function renderTodos() {
         // Create li element
         // Add class 'todo-item'
         // If completed, add 'completed' class
+        let li = document.createElement('li');
+        li.classList.add("todo-item");
+        if (todo.complete === true) {
+            li.classList.add('completed');
+        }
 
         // Create checkbox
+        let checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = todo.complete;
+        checkbox.addEventListener('change', function() {
+            toggleTodo(todo.id);
+        });
         // Create text span
+        
+        let span = document.createElement('span');
+        span.textContent = todo.name
         // Create delete button
+        let deleteBtn = document.createElement('button');
+        deleteBtn.textContent = "x";
+        deleteBtn.addEventListener ('click', function(){
+            deleteTodo(todo.id);
+        })
 
         // Add event listeners
         // Append to list
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+        todoList.appendChild(li)
     });
 
     // Update count
@@ -72,13 +123,25 @@ function renderTodos() {
 // TODO: Function to update the count display
 function updateCount() {
     // Count active (incomplete) todos
+    let count = todos.filter(function (todo){
+        return todo.complete === false;
+    }).length;
+
     // Update todoCount text
+    todoCount.textContent = count + "item left"
+
 }
 
 // TODO: Function to clear completed todos
 function clearCompleted() {
     // Filter out completed todos
+    let newlist = todos.filter(function(todo){
+        return todo.complete === true;
+    });
+    todos= newlist;
     // Render the list
+    renderTodos();
+
 }
 
 // TODO: Event listener for form submission
@@ -86,8 +149,13 @@ todoForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
     // Get input value
+    let text = todoInput.value;
     // Add todo if not empty
-    // Clear input
+    if (text !== ""){
+        addTodo(text);
+        // Clear input
+        todoInput.value = "";
+    }
 });
 
 // TODO: Event listeners for filter buttons
@@ -95,8 +163,12 @@ filterBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
         // Remove 'active' class from all buttons
         // Add 'active' to clicked button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
         // Set currentFilter
+        currentFilter = btn.dataset.filter;
         // Render todos
+        renderTodos();
     });
 });
 
