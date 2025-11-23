@@ -2,18 +2,18 @@
 // Add type annotations to the following code
 
 // TODO: Add type annotations to variables
-let username = 'Alice';
-let age = 25;
-let isActive = true;
-let scores = [95, 87, 92];
+let username: string = 'Alice';
+let age: number = 25;
+let isActive: boolean = true;
+let scores: number[] = [95, 87, 92];
 
 // TODO: Add type annotations to function parameters and return type
-function greet(name, age) {
+function greet(name: string, age: number) : string {
     return `Hello, ${name}! You are ${age} years old.`;
 }
 
 // TODO: Add type annotations
-function calculateAverage(numbers) {
+function calculateAverage(numbers :number[]) : number {
     const sum = numbers.reduce((total, n) => total + n, 0);
     return sum / numbers.length;
 }
@@ -22,10 +22,15 @@ function calculateAverage(numbers) {
 // Properties: id (number), name (string), email (string), isAdmin (boolean)
 interface User {
     // Add properties here
+    id: number;
+    name: string;
+    email: string;
+    isAdmin: boolean;
+
 }
 
 // TODO: Create a function that uses the User interface
-function createUser(name, email, isAdmin = false) {
+function createUser(name: string, email: string, isAdmin = false): User {
     return {
         id: Math.floor(Math.random() * 1000),
         name: name,
@@ -35,32 +40,32 @@ function createUser(name, email, isAdmin = false) {
 }
 
 // TODO: Add type annotation for the users array
-let users = [];
+let user: User[]= [];
 
 // TODO: Create an interface for a Product
 interface Product {
-    // id: number
-    // name: string
-    // price: number
-    // inStock: boolean
+    id: number;
+    name: string;
+    price: number;
+    inStock: boolean;
 }
 
 // TODO: Create a function that takes an array of products
 // and returns only products that are in stock
-function getInStockProducts(products) {
+function getInStockProducts(products: Product[]):Product[] {
     return products.filter(product => product.inStock);
 }
 
 // TODO: Add type annotation for union type
 // A variable that can be either a number or a string
-let id;
+let id: number| string;
 
 // TODO: Create a type alias for Status
 // Status can be 'pending', 'active', or 'completed'
-type Status = any; // Replace 'any' with union type
+type Status = 'pending' |'active' | 'completed'; // Replace 'any' with union type
 
 // TODO: Create a function that uses the Status type
-function updateStatus(status) {
+function updateStatus(status: Status): void{
     console.log(`Status updated to: ${status}`);
 }
 
